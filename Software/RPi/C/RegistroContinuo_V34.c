@@ -596,7 +596,7 @@ void DetectarEvento(unsigned char* tramaD) {
                 printf ("Enviado solicitud Evt Inicio %lu %lu Duracion %lu HoraActual %lu \n", fechaInitEvtAnt, tiempoInitEvtAnt, duracionEvtAnt, horaLong);
             
 				//Extrae el evento:
-				//ExtraerEvento(nombreArchivo, tiempoInitEvtAnt, duracionEvtAnt);
+				ExtraerEvento(nombreArchivo, tiempoInitEvtAnt, duracionEvtAnt);
 			
 			}
 
@@ -943,23 +943,37 @@ char calcularIsEvento(float resul_STA_LTA) {
 // *********************************************************************************************
 void ExtraerEvento(char* nombreArchivoRegistro, unsigned int tiempoEvento, unsigned int duracionEvento){
 
-	char parametroExtraerEvento[50];
+	char parametroExtraerEvento[60];
+	char parametroPublicarEvento[60];
 	char nombreArchivoRegistroStr[16];
 	char tiempoEventoStr[7];
 	char duracionEventoStr[5];
+	char backgroud[3];
 	
 	strcpy(nombreArchivoRegistroStr, nombreArchivoRegistro);
 	sprintf(tiempoEventoStr, " %d ", tiempoEvento); 
 	sprintf(duracionEventoStr, "%d", duracionEvento); 
+	strcpy(backgroud, " &");
 	
 	strcpy(parametroExtraerEvento, "/home/pi/Ejecutables/extraerevento ");
 	strcat(parametroExtraerEvento, nombreArchivoRegistroStr);
 	strcat(parametroExtraerEvento, tiempoEventoStr);
 	strcat(parametroExtraerEvento, duracionEventoStr);
+	strcat(parametroExtraerEvento, backgroud);
+	
+	strcpy(parametroPublicarEvento, "python3 /home/pi/Ejecutables/publicarevento.py");
+	strcat(parametroPublicarEvento, tiempoEventoStr);
+	strcat(parametroPublicarEvento, duracionEventoStr);
+	strcat(parametroPublicarEvento, backgroud);
 	
 	system(parametroExtraerEvento);	
+	system(parametroPublicarEvento);	
 	
 }
 // *********************************************************************************************
 // ******************************** Fin Metodo ExtraerEvento **********************************
 // *********************************************************************************************
+
+
+//python3 /home/pi/Ejecutables/publicarevento.py 86400 100
+//   python3 /home/pi/Programas/Pruebas/publicarevento.py 86400 100

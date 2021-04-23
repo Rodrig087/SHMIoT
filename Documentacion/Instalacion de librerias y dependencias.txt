@@ -1,0 +1,31 @@
+PIP:
+sudo apt-get update
+sudo apt-get install python3-pip
+
+Git:
+sudo apt update
+sudo apt install git
+
+
+Paho:
+**No funciona bien la instalacion con pip
+Desistalar: sudo pip3 uninstall paho-mqtt
+
+git clone https://github.com/eclipse/paho.mqtt.python
+cd paho.mqtt.python
+sudo python3 setup.py install
+
+Error: Se extravio la carpeta: cd /usr/local/lib/python3.5
+Solucion: Desinstalar completamente python3.5 con esto:
+dpkg -l | grep python3.5  //Busca todas las dependencias
+sudo apt-get --purge remove libpython3.5 libpython3.5-dev libpython3.5-minimal libpython3.5-stdlib python3.5 python3.5-dev python3.5-minimal  //Remueve todo
+Reinstalar python3.5 con esto:
+sudo apt update
+sudo apt install python3 idle3 
+
+Error: Al tratar de instalar paho salio este error: 
+ImportError: No module named setuptools
+Solucion: Instalar la siguiente libreria
+sudo apt-get install python3-setuptools
+
+**Despues de esto la instalacion de paho no tuvo problemas
